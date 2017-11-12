@@ -18,10 +18,16 @@ Function Get-VSCodeMemory {
 $FonctionPasTrèsLisibleAst = ConvertTo-FunctionAst -FunctionText $FonctionPasTrèsLisible
 Get-FunctionLinesOfCode $FonctionPasTrèsLisibleAst
 
+# Est-ce que c'est peu ? Beaucoup ? Beaucoup trop ?
+Get-PSCodeHealthComplianceRule -SettingsGroup PerFunctionMetrics -MetricName LinesOfCode
+
 #endregion
 
 #region Résultat de PSScriptAnalyzer
 Invoke-ScriptAnalyzer -ScriptDefinition $FonctionPasTrèsLisible
+
+# Est-ce que c'est bien ou pas ?
+Get-PSCodeHealthComplianceRule -SettingsGroup PerFunctionMetrics -MetricName ScriptAnalyzerFindings
 
 $VersionPlusLisible = @'
 Function Get-VSCodeMemory {
@@ -40,3 +46,5 @@ Function Get-VSCodeMemory {
 '@
 
 Invoke-ScriptAnalyzer -ScriptDefinition $VersionPlusLisible
+
+#endregion

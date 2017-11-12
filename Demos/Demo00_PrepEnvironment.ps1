@@ -11,3 +11,10 @@ $PrivateFunctionsToLoad = (Get-ChildItem $PSCodeHealthPrivatePath -File -Filter 
 Foreach ( $PrivateFunction in $PrivateFunctionsToLoad ) {
     . $PrivateFunction
 }
+
+# Loading PSCodeHealth public functions
+$PSCodeHealthPublicPath = '..\..\PSCodeHealth\PSCodeHealth\Public'
+$PublicFunctionsToLoad = (Get-ChildItem $PSCodeHealthPublicPath -File -Filter '*.ps1' -Recurse).FullName
+Foreach ( $PublicFunction in $PublicFunctionsToLoad ) {
+    . $PublicFunction
+}
