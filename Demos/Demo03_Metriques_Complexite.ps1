@@ -40,6 +40,44 @@ Function Get-CurrentMonth {
     Write-Output "Nous sommes au mois de $Month !"
 }
 '@
+$ComplexitéCyclomaticElevéAst = ConvertTo-FunctionAst -FunctionText $ComplexitéCyclomaticElevé
+Measure-FunctionComplexity $ComplexitéCyclomaticElevéAst
 
 #endregion
 
+#region Niveau d’imbrication maximal
+Measure-FunctionMaxNestingDepth $ComplexitéCyclomaticElevéAst
+Get-PSCodeHealthComplianceRule -SettingsGroup PerFunctionMetrics -MetricName MaximumNestingDepth
+
+$ImbricationComplexe = @'
+Function Test-Conditional {
+    Param(
+        [int]$IfElseif
+    )
+    If ( $IfElseif -gt 20 ) {
+        If ( $IfElseif -gt 40 ) {
+            Write-Host 'IfElseif is between 20 and 40'
+        }
+        Else {
+            Write-Host 'IfElseif is greater than 40'
+        }
+    }
+    Else {
+        If ( $IfElseif -ge 10 ) {
+            Write-Host 'IfElseif is a 2 digit number'
+        }
+        Else {
+            For ($i = 1; $i -lt 99; $i++) {
+                Write-Host "$($IfElseif + $i)"       
+                For ($j = 0; $j -lt 10; $j++) {
+                    Write-Host "$($IfElseif - $j)"
+                }
+            }
+        }
+    }
+}
+'@
+$ImbricationComplexeAst = ConvertTo-FunctionAst -FunctionText $ImbricationComplexe
+Measure-FunctionMaxNestingDepth $ImbricationComplexeAst
+
+#endregion
