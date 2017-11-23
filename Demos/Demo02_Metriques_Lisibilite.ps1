@@ -5,12 +5,12 @@ Function Get-VSCodeMemory {
         [System.Int32]$Id
     )
     If ( $Id ) {
-        $VSCodeProcess = ps -Id $Id
+        $P = ps -Id $Id
     }
     Else {
-        $VSCodeProcess = ps 'code'
+        $P = ps 'code'
     }
-    $MemoryTotal = ($VSCodeProcess | Measure 'WorkingSet' -Sum).Sum
+    $MemoryTotal = ($P | Measure 'WorkingSet' -Sum).Sum
     return [int]($MemoryTotal /1MB)
 }
 '@
