@@ -26,7 +26,7 @@ Else {
     Write-Output '$x est négatif !'
 }
 
-# C'est une question de préférence personnelle (ou d'équipe).
+# C'est une question de préférence
 # L'important est de choisir un style et de s'y tenir.
 #endregion
 
