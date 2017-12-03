@@ -1,0 +1,13 @@
+{
+    "PerFunctionMetrics": [
+    ],
+    "OverallMetrics": [
+        {
+            "TestCoverage": {
+                "WarningThreshold": 25,
+                "FailThreshold": 20,
+                "HigherIsBetter": true
+            }
+        }
+    ]
+}
